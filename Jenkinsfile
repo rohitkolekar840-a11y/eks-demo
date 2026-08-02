@@ -19,7 +19,7 @@ pipeline {
 
         ECR_URI = "${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${REPOSITORY}"
 
-        EKS_CLUSTER = 'demo-cluster'
+        EKS_CLUSTER = 'demo-cluster-1'
 
         SERVICE_NAME = 'frontend'
 
@@ -60,11 +60,7 @@ pipeline {
             steps {
 
                 sh """
-                    docker buildx build \
-                    --platform linux/amd64 \
-                    -t ${ECR_URI}:${IMAGE_TAG} \
-                    -t ${ECR_URI}:latest \
-                    --push .
+                    docker build -t ${REPOSITORY}:${IMAGE_TAG} .
                 """
 
             }
